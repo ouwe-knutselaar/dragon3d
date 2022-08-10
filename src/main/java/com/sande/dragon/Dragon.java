@@ -8,9 +8,12 @@ import com.sande.yamldata.DragonConfigReader;
 // The whole dragon
 public class Dragon extends Node {
 
+    DragonChest dragonChest;
+    Feet feet;
+
     public Dragon(){
-        Feet feet = new Feet();
-        DragonChest dragonChest = new DragonChest();
+        feet = new Feet();
+        dragonChest = new DragonChest();
 
         for(Cube cube : Global.dragonConfigReader.getBody())
         {
@@ -20,6 +23,10 @@ public class Dragon extends Node {
 
         attachChild(feet);
         attachChild(dragonChest);
+    }
+
+    public void update(){
+        dragonChest.update();
     }
 
 }

@@ -6,14 +6,13 @@ import com.jme3.math.Vector3f;
 import com.jme3.system.AppSettings;
 import com.sande.dialog.DragonDialog;
 import com.sande.dragon.Dragon;
+import com.sande.network.UDPConnector;
 import com.sande.tools.Axisses;
-import com.sande.tools.GameControllerService;
 import com.sande.yamldata.DragonConfigReader;
 
 
 public class Dragon3d extends SimpleApplication {
 
-    private GameControllerService gameControllerService;
     private Dragon dragon;
 
     public static void main(String [] argv){
@@ -31,8 +30,8 @@ public class Dragon3d extends SimpleApplication {
 
         Global.dragonConfigReader = DragonConfigReader.getInstance();
 
-        gameControllerService = new GameControllerService();
-        Global.gameControllerService = gameControllerService;
+        Global.udpConnector = new UDPConnector(3001);
+
         Global.assetManager = assetManager;
 
         DragonDialog dragonDialog = new DragonDialog();
@@ -56,8 +55,9 @@ public class Dragon3d extends SimpleApplication {
 
     @Override
     public void simpleUpdate(float tpf){
-        gameControllerService.processEvents();
         Global.dragonDialog.checkVisibility();
+        Global.wingLeft+=5;
+        dragon.update();
     }
 
 }

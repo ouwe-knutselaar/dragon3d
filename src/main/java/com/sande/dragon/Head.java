@@ -4,9 +4,8 @@ import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.sande.Global;
-import com.sande.tools.GameControllerEvent;
+import com.sande.tools.ControllerEvent;
 import com.sande.yamldata.Cube;
-import com.sande.yamldata.DragonConfigReader;
 
 
 public class Head extends DragonPart {
@@ -28,10 +27,10 @@ public class Head extends DragonPart {
 
         Quaternion jawQuaternion = jaw.getLocalRotation();
 
-        Global.gameControllerService.addGameHandler(new GameControllerEvent() {
+        Global.udpConnector.addControllerEvent(new ControllerEvent() {
             @Override
-            public void GameEvent(String id, float value) {
-                if(id.equals("5")){
+            public void GameEvent(String id, int value) {
+                if(id.equals("jaw")){
                     Quaternion temp = jawQuaternion;
                     temp.fromAngleAxis(FastMath.PI*value/4,new Vector3f(1,0,0));
                     jaw.setLocalRotation(temp);
